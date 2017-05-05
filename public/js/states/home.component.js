@@ -34,34 +34,28 @@
     vm.$onInit = function() {
       listsService.getLists()
         .then((lists) => {
-          console.log(lists);
           vm.lists = lists;
         });
     }
 
     vm.addList = function(title) {
-      const nextLists = vm.lists;
-
-      nextLists.push({ id: vm.lists.length + 1, title, tasks: [] });
-
-      vm.lists = nextLists;
+      listsService.postLists(title)
+        .then(() => {
+          return listsService.getLists();
+        })
+        .then((lists) => {
+          vm.lists = lists;
+        });
     }
 
     vm.deleteList = function(listId) {
-      const nextLists = [];
-
-      for (const list of vm.lists) {
-        if (list.id !== listId) {
-          nextLists.push({
-            id: nextLists.length + 1,
-            title: list.title,
-            tasks: list.tasks
-          });
-        }
-
-      }
-
-      vm.lists = nextLists;
+      listsService.deleteLists(listId)
+        .then(() => {
+          return listsService.getLists();
+        })
+        .then((lists) => {
+          vm.lists = lists;
+        });
     }
 
     vm.deleteTask = function(listId, taskId) {

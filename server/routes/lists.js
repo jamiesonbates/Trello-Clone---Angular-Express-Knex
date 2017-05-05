@@ -2,14 +2,13 @@
 
 const express = require('express');
 const router = express.Router();
+const knex = require('../../knex');
 
 const util = require('./util');
 
 router.get('/lists', (req, res, next) => {
-  console.log('here');
   util.getLists()
     .then((lists) => {
-      console.log(lists);
       res.send(lists);
     })
     .catch((err) => {
@@ -18,11 +17,32 @@ router.get('/lists', (req, res, next) => {
 });
 
 router.post('/lists', (req, res, next) => {
+  const title = req.body.list;
 
+  knex('lists')
+    .insert({ title })
+    .returning('*')
+    .then((list) => {
+      res.send(list[0]);
+    })
+    .catch((err) => {
+      next(err);
+    });
 });
 
-router.delete('/lists', (req, res, next) => {
+router.delete('/lists/:id', (req, res, next) => {
+  const listId = req.params.id;
 
+  knex('lists')
+    .del()
+    .where('id', listId)
+    .returning('*')
+    .then((list) => {
+      res.send(list[0]);
+    })
+    .catch((err) => {
+      next(err);
+    });
 });
 
 module.exports = router;

@@ -14,7 +14,7 @@
     }
 
     this.postLists = function(list) {
-      return $http.get('/api/lists', { list })
+      return $http.post('/api/lists', { list })
         .then((res) => {
           return res.data;
         });
