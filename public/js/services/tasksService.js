@@ -13,6 +13,13 @@
         });
     }
 
+    this.updateTask = function(taskId, task) {
+      return $http.patch('/api/tasks', { taskId, task })
+        .then((res) => {
+          return res.data;
+        });
+    }
+
     this.deleteTask = function(taskId) {
       return $http.delete(`/api/tasks/${taskId}`)
         .then((res) => {
