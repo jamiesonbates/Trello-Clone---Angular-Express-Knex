@@ -7,14 +7,7 @@
       bindings: {
         addList: '&'
       },
-      template: `
-        <div class="new-list">
-          <form>
-            <input type="text" name="title" ng-model="$ctrl.listTitle" placeholder="Create a list" autocomplete="off" wrap="soft">
-            <button type="button" ng-click="$ctrl.addList({ title: $ctrl.listTitle }); $ctrl.listTitle = ''" class="btn list-btn">Create</button>
-          </form>
-        </div>
-      `
+      templateUrl: '/js/components/new-list.template.html'
     })
 
     function controller() {

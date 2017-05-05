@@ -27,20 +27,16 @@
       `
     });
 
-  function controller() {
+  controller.$inject = ['listsService', 'tasksService'];
+  function controller(listsService, tasksService) {
     const vm = this;
 
     vm.$onInit = function() {
-      vm.lists = [{
-          id: 1,
-          title: 'My List',
-          tasks: [{ id: 1, name: 'Do your homework' }, { id: 2, name: 'Go to school' }, { id: 3, name: 'Eat dinner'}, { id: 4, name: 'Go to the gym' }, { id: 5, name: 'Write in journal' }]
-        },
-        {
-          id: 2,
-          title: 'Your List',
-          tasks: [{ id: 1, name: 'Go shopping' }, { id: 2, name: 'Go to soccer game' }]
-      }];
+      listsService.getLists()
+        .then((lists) => {
+          console.log(lists);
+          vm.lists = lists;
+        });
     }
 
     vm.addList = function(title) {
