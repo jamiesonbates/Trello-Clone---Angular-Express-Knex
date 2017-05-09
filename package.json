@@ -3,9 +3,6 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
   "keywords": [],
   "author": "Jamieson Bates <jamiesonbates@gmail.com>",
   "license": "ISC",
@@ -23,6 +20,7 @@
     "pg": "^6.1.5"
   },
   "scripts": {
-    "knex": "knex"
+    "knex": "knex",
+    "start": "nodemon server/server.js"
   }
 }
